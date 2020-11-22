@@ -1,0 +1,26 @@
+<%- include('header') %> 
+
+<div class="box" id="heading">
+  <h1><%= title %></h1>
+</div>
+<div class="box">
+  <% items.forEach(item => { %>
+  <div class="item">
+    <input type="checkbox" />
+    <p><%= item %></p>
+  </div>
+  <% }); %>
+  <form class="item" action="/" method="post">
+    <label for="input"></label>
+    <input
+      type="text"
+      name="todo"
+      id="input"
+      placeholder="New item"
+      autofocus
+      autocomplete="off"
+    />
+    <button type="submit" name="list" value="<%= title %>">+</button>
+  </form>
+</div>
+<%- include('footer') %> 

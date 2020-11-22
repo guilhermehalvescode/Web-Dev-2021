@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="Newsletter Login page" />
+    <meta name="author" content="Guilherme Alves Carvalho" />
+    <title>Newsletter Signup</title>
+
+    <link
+      href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <meta name="theme-color" content="#fff" />
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <link href="/css/styles.css" rel="stylesheet" />
+  </head>
+  <body class="text-center">
+    <form method="POST" action="/" class="form-signin">
+      <img class="mb-4" src="/img/logo.png" alt="" width="100" height="100" />
+      <h1 class="h3 mb-3 font-weight-normal">Sign up to My Newsletter!</h1>
+      <input
+        type="text"
+        class="form-control top"
+        placeholder="First name"
+        required
+        name="fname"
+        autofocus
+      />
+      <input
+        type="text"
+        class="form-control middle"
+        placeholder="Last name"
+        required
+        name="lname"
+      />
+      <input
+        type="email"
+        class="form-control bottom"
+        placeholder="Email address"
+        required
+        name="email"
+      />
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Sign me up!
+      </button>
+      <p class="mt-5 mb-3 text-muted">&copy; Guilherme Alves Carvalho</p>
+    </form>
+  </body>
+</html>
