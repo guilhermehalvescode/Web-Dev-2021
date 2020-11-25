@@ -18,8 +18,10 @@ app.use(express.static("public"));
 const posts = [];
 
 app.get("/", (req, res) => {
-  console.log(posts);
-  res.render("home", {homeStartingContent});
+  res.render("home", {
+    homeStartingContent, 
+    posts
+  });
 });
 
 app.get("/about", (req, res) => {
@@ -43,7 +45,18 @@ app.post("/compose", (req, res) => {
   res.redirect("/");
 });
 
-
+app.get("/posts/:name", (req, res) => {
+  const postName = req.params.name;
+  const result = posts.find(post => {
+    return post.title === postName;
+  });
+  if(result) {
+    console.log("Match");
+  } else {
+    console.log("Not match");
+  }
+  res.redirect("/");
+});
 
 
 
