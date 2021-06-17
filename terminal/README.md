@@ -27,7 +27,7 @@
   ![file -l](https://www.cbtnuggets.com/blog/wp-content/uploads/2020/10/Screen-Shot-2020-10-19-at-9.56.52-AM.png)
   1. The “-” tells us the file is a regular file type. Other common types include: “d” for directories and “l” for symlinks
   2. These are the permissions for the file, and there are three parts: user (first rw-), group (second rw-) and all users & groups (third rw-). Here’s a further breakdown of the permission component:
-  ![File Permissions](https://www.cbtnuggets.com/blog/wp-content/uploads/2020/10/Screen-Shot-2020-10-19-at-10.52.25-AM.png)
+  - ![File Permissions](https://www.cbtnuggets.com/blog/wp-content/uploads/2020/10/Screen-Shot-2020-10-19-at-10.52.25-AM.png)
   3. Number of links to the file
   4. Name of the user that owns the file.
   5. Name of the group that owns the file.
