@@ -2,8 +2,16 @@ class PeopleCollection {
   constructor() {
     this.db = require("mongoose");
     this.peopleSchema = new this.db.Schema({
-      name: String,
-      age: Number
+      name: {
+        type: String,
+        minLength: 2,
+        maxLength: 100
+      },
+      age: {
+        type: Number,
+        min: 0,
+        max: 150
+      }
     });
     this.Person = new this.db.model("Person", this.peopleSchema);
   }
@@ -20,7 +28,7 @@ class PeopleCollection {
   async insertPeople(people = []) {
     try {
       await this.connect();
-      this.Person.insertMany(people.map(person => this.Person(person)), err => {
+      this.Person.insertMany(people.map(person => new this.Person(person)), err => {
         if(err) throw new Error("Error during insertion");
       });
     } catch (e) {
@@ -30,17 +38,17 @@ class PeopleCollection {
 
   async deleteAll() {
     try {
-      return await this.db
-        .db("fruitsDb")
-        .collection("fruits")
-        .deleteMany();
+      await this.connect();
+      return await this.Person.deleteMany();
     } catch (e) {
       return null;
     }
   }
 
-  async findFruit(query = {}) {
+  async findPerson(query = {}) {
     try {
+      await this.connect();
+      return await this.Person.find(query);
     } catch (e) {
       return [];
     }
@@ -50,6 +58,10 @@ class PeopleCollection {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
+  }
+
+  async close() {
+    await this.db.connection.close();
   }
 }
 

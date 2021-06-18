@@ -20,10 +20,7 @@ class FruitsCollection {
 
   async deleteAll() {
     try {
-      return await this.db
-        .db("FruitsCollection")
-        .collection("fruits")
-        .deleteMany();
+      return await this.Fruit.deleteMany();
     } catch (e) {
       return null;
     }
@@ -31,6 +28,7 @@ class FruitsCollection {
 
   async findFruit(query = {}) {
     try {
+      return await this.Fruit.find(query);
     } catch (e) {
       return [];
     }
