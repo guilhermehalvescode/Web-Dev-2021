@@ -1,0 +1,15 @@
+{
+  "name": "mongoose",
+  "description": "### Folders - db (holds a class responsible to manage the connection and CRUD over fruits)   - connection.js (configuration file + class) - app.js (app file that connects, insert fruit examples, and queries a fruit)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^5.12.14"
+  }
+}
