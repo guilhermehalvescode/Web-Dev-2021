@@ -3,8 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 
-const Item = require("./db/models/item");
-const itemCollection = new Item();
+const List = require("./db/models/itemDAO");
+const listCollection = new List();
 
 const app = express();
 
@@ -15,25 +15,29 @@ app.use(express.static("public"));
 
 
 app.get("/", async (req, res) => {
-  const items = await itemCollection.index();
+  const items = await listCollection.index();
   return res.render("list", { listTitle: "Today", newListItems: items });
 });
 
 app.post("/", async (req, res) => {
   const { newItem: name } = req.body;
-  await itemCollection.insert({ name });
+  await listCollection.insert({ name });
   res.redirect("/");
 });
 
 app.post("/delete", async (req, res) => {
   const { checkbox: id } = req.body;
-  await itemCollection.deleteById(id);
+  await listCollection.deleteById(id);
   res.redirect("/");
 });
 
-app.get("/:collection", function (req, res) {
+app.get("/:collection", async (req, res) => {
   const { collection } = req.params;
-  res.render("list", { listTitle: collection, newListItems: workItems });
+  let list = await listCollection.listFindOne(collection);
+  if(!list) {
+    await listCollection.listCreate(collection);
+  } 
+  res.render("list", { listTitle: collection, newListItems: list?.items || [] });
 });
 
 app.get("/about", function (req, res) {
