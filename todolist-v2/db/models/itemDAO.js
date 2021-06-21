@@ -36,12 +36,28 @@ module.exports = class List extends Item {
   listInsert = async (itemName, listName) =>
     this.mongooseQuery(async () => {
       try {
-        const foundList = await this.listModel.findOne({ name: listName});
-        console.log(foundList);
+        const foundList = await this.listModel.findOne({ name: listName });
         foundList.items.push(new this.Model({ name: itemName }));
         return foundList.save();
       } catch (e) {
         return e
       }
     });
+
+  listDeleteById = async (id, listName) =>
+    this.mongooseQuery(async () => {
+      try {
+        await this.listModel.findOneAndUpdate({ 
+          name: listName 
+        }, { 
+          $pull: { 
+            items: { 
+              _id: id 
+            } 
+          } 
+        });
+      } catch (e) {
+        return e;
+      }
+    })
 }
