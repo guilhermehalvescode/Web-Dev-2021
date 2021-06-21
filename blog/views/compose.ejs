@@ -4,9 +4,9 @@
     <form class="" action="/compose" method="post">
       <div class="form-group">
         <label>Title</label>
-        <input class="form-control" type="text" name="postTitle">
+        <input maxlength="50" minlength="1" class="form-control" type="text" required name="postTitle">
         <label>Post</label>
-        <textarea class="form-control" name="postBody" rows="5" cols="30"></textarea>
+        <textarea maxlength="300" minlength="1" class="form-control" name="postBody" required rows="5" cols="30"></textarea>
       </div>
       <button class="btn btn-primary" type="submit" name="button">Publish</button>
     </form>
