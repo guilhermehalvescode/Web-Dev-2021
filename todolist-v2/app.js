@@ -20,9 +20,14 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
-  const { newItem: name } = req.body;
-  await listCollection.insert({ name });
-  res.redirect("/");
+  const { newItem: name, list: listName } = req.body;
+  const isToday = listName === "Today";
+  if (isToday)
+    await listCollection.insert({ name });
+  else {
+    await listCollection.listInsert(name, listName);
+  }
+  res.redirect(isToday ? "/" : `/${listName}`);
 });
 
 app.post("/delete", async (req, res) => {
@@ -34,9 +39,18 @@ app.post("/delete", async (req, res) => {
 app.get("/:collection", async (req, res) => {
   const { collection } = req.params;
   let list = await listCollection.listFindOne(collection);
-  if(!list) {
+  if (!list) {
     await listCollection.listCreate(collection);
-  } 
+  }
+  res.render("list", { listTitle: collection, newListItems: list?.items || [] });
+});
+
+app.post("/:collection", async (req, res) => {
+  const { collection } = req.params;
+  let list = await listCollection.listFindOne(collection);
+  if (!list) {
+    await listCollection.listCreate(collection);
+  }
   res.render("list", { listTitle: collection, newListItems: list?.items || [] });
 });
 

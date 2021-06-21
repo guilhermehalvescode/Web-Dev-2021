@@ -33,12 +33,15 @@ module.exports = class List extends Item {
       }
     });
 
-  insert = async item =>
+  listInsert = async (itemName, listName) =>
     this.mongooseQuery(async () => {
       try {
-        return await (new this.listModel(item)).save();
+        const foundList = await this.listModel.findOne({ name: listName});
+        console.log(foundList);
+        foundList.items.push(new this.Model({ name: itemName }));
+        return foundList.save();
       } catch (e) {
-        return e;
+        return e
       }
     });
 }
