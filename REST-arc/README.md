@@ -20,3 +20,4 @@
 2. **Use Specific Pattern of Routes/Endpoinst URLs**
     - Build a RESTful routing (route name suggests content transfer on route).
     - Exemple of a RESTful routing. ![RESTful Routing Example](images/RESTful-routing.png)
+    - Another example -> [RESTful API](RESTful-api)
