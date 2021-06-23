@@ -32,3 +32,22 @@
       }
       ```
   - **DELETE** - deletes all articles
+- `/articles/:name`
+  - **GET** - get a article by it's name
+  - **PUT** - put a article by it's name, overwriting all the document
+    - body 
+      ```javascript 
+      {
+        title: String, //If not sent, the attribute will be deleted from the document
+        content: String //If not sent, the attribute will be deleted from the document
+      }
+      ```
+    - **PUT** - patch a article by it's name, changing the document attributes
+    - body 
+      ```javascript 
+      {
+        title: String, //If not sent, the attribute will preserved from the previous document
+        content: String //If not sent, the attribute will preserved from the previous document
+      }
+      ```
+  - **DELETE** - delete a article by it's name

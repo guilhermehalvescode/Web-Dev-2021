@@ -35,9 +35,22 @@ module.exports = class Article extends Mongoose {
       return await this.Model.deleteMany(filter);
     })
   }
-  findById = async id => 
+
+  updatePut = async (filter, article) => {
     this.mongooseQuery(async () => {
-      return await this.Model.findById(id);
+      return await this.Model.update(filter, article, { overwrite: true })
+    })
+  }
+
+  updatePatch = async (filter, article) => {
+    this.mongooseQuery(async () => {
+      return await this.Model.updateOne(filter, article)
+    })
+  }
+
+  find = async filter => 
+    this.mongooseQuery(async () => {
+      return await this.Model.findOne(filter);
     });
   
 }
