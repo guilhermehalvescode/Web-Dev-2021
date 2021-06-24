@@ -1,22 +1,18 @@
 const Mongoose = require("../connection");
-
+const passportLocalMongoose = require("passport-local-mongoose");
 module.exports = class User extends Mongoose {
   constructor() {
     super();
-    this.schema = this.db.Schema({
+    this.schema = new this.db.Schema({
       email: {
         type: String,
         minLength: 7,
         maxLength: 50,
         required: [true, "User must have an email."]
-      },
-      password: {
-        type: String,
-        minLength: 7,
-        maxLength: 30,
-        required: [true, "User must gave a password"]
       }
     });
+    //https://www.npmjs.com/package/passport-local-mongoose
+    this.schema.plugin(passportLocalMongoose, { usernameField: 'email' });
     this.Model = this.db.model("User", this.schema);
   }
 
@@ -27,7 +23,7 @@ module.exports = class User extends Mongoose {
 
   create = async ({ email, password }) => 
     this.mongooseQuery(async () => {
-      return await (new this.Model({ email, password })).save();
+      return await this.Model.register({ email }, password);
     });
   
 

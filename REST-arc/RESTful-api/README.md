@@ -1,5 +1,5 @@
 # WikiDB RESTful API Example
-- In This example, were are going to use MongoDB with a DB called WikiDB. In this db, there's a collection called articles, which is going to be our RESTful route.
+- In this example, were are going to use MongoDB with a DB called WikiDB. In this db, there's a collection called articles, which is going to be our RESTful route.
 
 ## _Project Organization_
 - At our [`app.js`](app.js) file, we are requiring our RESTful API route and setting it's root to `/api`, so it's resources can be accessed at this route. ![Code Example](images/appjs.png)

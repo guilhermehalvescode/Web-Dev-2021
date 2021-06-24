@@ -6,7 +6,8 @@ module.exports = class Mongoose {
     await this.db.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`, {
       useNewUrlParser: true, 
       useUnifiedTopology: true,
-      useFindAndModify: false
+      useFindAndModify: false,
+      useCreateIndex: true
     });
     const res = await callback();
     this.db.connection.close();
