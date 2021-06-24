@@ -10,7 +10,7 @@ module.exports = class Mongoose {
       useCreateIndex: true
     });
     const res = await callback();
-    this.db.connection.close();
+    await this.db.connection.close();
     return res;
   }
 }

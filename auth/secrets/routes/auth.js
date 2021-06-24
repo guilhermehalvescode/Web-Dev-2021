@@ -4,8 +4,9 @@ const authController = new AuthController();
 
 route.get("/", authController.home)
 
-route.use(authController.passport.init);
-route.use(authController.passport.sess);
+route.use(authController.passport.initialize());
+route.use(authController.passport.session());
+authController.startPassport();
 
 route.route("/login")
   .get(authController.getLogin)
@@ -13,7 +14,13 @@ route.route("/login")
 
 route.route("/register")
   .get(authController.getRegister)
-  .post(authController.postRegister);
+  .post(
+    authController.postRegister,
+    authController.authenticate
+  );
+
+route.get("/logout", authController.logout)
+  
 
 route.route("/secrets")
   .get(authController.getSecrets);

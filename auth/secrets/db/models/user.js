@@ -32,4 +32,5 @@ module.exports = class User extends Mongoose {
       return await this.Model.findOne(filter);
     });
   
+    
 }
