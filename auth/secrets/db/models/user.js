@@ -4,7 +4,7 @@ module.exports = class User extends Mongoose {
   constructor() {
     super();
     this.schema = new this.db.Schema({
-      email: {
+      username: {
         type: String,
         minLength: 7,
         maxLength: 50,
@@ -12,7 +12,7 @@ module.exports = class User extends Mongoose {
       }
     });
     //https://www.npmjs.com/package/passport-local-mongoose
-    this.schema.plugin(passportLocalMongoose, { usernameField: 'email' });
+    this.schema.plugin(passportLocalMongoose);
     this.Model = this.db.model("User", this.schema);
   }
 
@@ -21,9 +21,9 @@ module.exports = class User extends Mongoose {
       return await this.Model.find({});
     })
 
-  create = async ({ email, password }) => 
+  create = async ({ username, password }) => 
     this.mongooseQuery(async () => {
-      return await this.Model.register({ email }, password);
+      return await this.Model.register({ username }, password);
     });
   
 

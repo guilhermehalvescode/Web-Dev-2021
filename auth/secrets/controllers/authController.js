@@ -1,6 +1,4 @@
 const User = require("../db/models/user");
-
-const { compare } = require("../utils/hash");
 module.exports = class AuthController {
 
   startPassport() {
@@ -31,18 +29,14 @@ module.exports = class AuthController {
 
   postLogin = async (req, res) => {
     try {
-      await this.userCollection.db.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`, {
-        useNewUrlParser: true, 
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true
-      });
-      req.login(new this.userCollection.Model({
-        email: req.body.email,
-        password: req.body.password
-      }), err => {
-        if(err) console.log(err);
-        else res.redirect("/secrets");
+      this.userCollection.mongooseQuery(() => {
+        req.login(new this.userCollection.Model({
+          username: req.body.username,
+          password: req.body.password
+        }), err => {
+          if(err) console.log(err);
+          else res.redirect("/secrets");
+        })
       })
     } catch(e) {
       console.log(e);
@@ -65,25 +59,22 @@ module.exports = class AuthController {
       if(!user) throw new Error("Unable to register user");
       return next();
     } catch(e) {
+      console.log(e);
       return res.redirect("/register");
     }
   }
 
   authenticate = async (req, res) => {
     try {
-      await this.userCollection.db.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`, {
-        useNewUrlParser: true, 
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true
-      });
-      await this.passport.authenticate('local', async (err, user, info) => {
-        if (err || !user) { return res.redirect("/register"); }
-        await req.logIn(user, async err => {
-          if (err) { return res.redirect("/register"); }
-          return res.redirect('/secrets');
-        });
-      })(req, res)
+      this.userCollection.mongooseQuery(async () => {
+        await this.passport.authenticate('local', (err, user, info) => {
+          if (err || !user) return res.redirect("/register");
+          req.logIn(user, err => {
+            if (err) return res.redirect("/register");
+            return res.redirect('/secrets');
+          });
+        })(req, res)
+      })
     } catch (e) {
       console.log(e);
       return res.redirect("/register");

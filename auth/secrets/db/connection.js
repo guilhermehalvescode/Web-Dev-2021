@@ -9,8 +9,6 @@ module.exports = class Mongoose {
       useFindAndModify: false,
       useCreateIndex: true
     });
-    const res = await callback();
-    await this.db.connection.close();
-    return res;
+    return await callback();
   }
 }
